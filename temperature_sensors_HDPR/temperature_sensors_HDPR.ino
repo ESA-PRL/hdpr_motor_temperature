@@ -42,12 +42,37 @@ void setup()
 void loop()
 {
   float temp;
-  sensors.requestTemperatures();
+  int answer;
+  int missed_count;
+
+  // tell each sensor to start a conversion
+  // If the sensor does not answer, try at least 10 times
+  for(int i = 0; i < 6; i++)
+  {
+    missed_count = -1;
+    do
+    {
+      answer = sensors.requestTemperaturesByAddress(temp_sensors[i].address);
+      missed_count++;
+    }
+    while(!answer && (missed_count < 10));
+  }
+
+  // wait for the conversion
+  delay(250); // >200ms for 10bit resolution
   
   for(int i = 0; i < 6; i++)
   {
-    // Read the sensor
-    temp = sensors.getTempC(temp_sensors[i].address);
+      // Read the sensor
+      // If the sensor does not answer, try at least 10 times
+
+    missed_count = -1;
+    do
+    {
+        temp = sensors.getTempC(temp_sensors[i].address);
+        missed_count++;
+    }
+    while((temp == -127.00) && (missed_count < 10));
     
     // If it returns -127 it means the reading was unsuccesful
     /*if(temp == -127.0f)
@@ -67,7 +92,6 @@ void loop()
 
   sendTemperatures();
   
-  delay(200);
   digitalWrite(13, !digitalRead(13));
 }
 

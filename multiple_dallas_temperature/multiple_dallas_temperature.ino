@@ -61,36 +61,66 @@ void setup()   /****** SETUP: RUNS ONCE ******/
 
 void loop()   /****** LOOP: RUNS CONSTANTLY ******/
 {
+
+  int test;
   delay(1000);
   Serial.println();
   Serial.print("Number of Devices found on bus = ");  
-  Serial.println(sensors.getDeviceCount());   
+  //Serial.println(sensors.getDeviceCount());   
   Serial.print("Getting temperatures... ");  
   Serial.println();   
   
   // Command all devices on bus to read temperature  
-  sensors.requestTemperatures();  
+  test = sensors.requestTemperaturesByAddress(Probe01);  
+      Serial.println(test);
+
+  delay(1000);
   
   Serial.print("Probe FR temperature is:   ");
   printTemperature(Probe01);
   Serial.println();
 
+    delay(1000);
+
+  test = sensors.requestTemperaturesByAddress(Probe02);  
+      Serial.println(test);
+
+  delay(1000);
   Serial.print("Probe CR temperature is:   ");
   printTemperature(Probe02);
   Serial.println();
- 
+    delay(1000);
+
+   test = sensors.requestTemperaturesByAddress(Probe03);  
+       Serial.println(test);
+
+  delay(1000);
   Serial.print("Probe RR temperature is:   ");
   printTemperature(Probe03);
   Serial.println();
-   
+    delay(1000);
+
+     test = sensors.requestTemperaturesByAddress(Probe04);  
+         Serial.println(test);
+
+  delay(1000);
   Serial.print("Probe FL temperature is:   ");
   printTemperature(Probe04);
   Serial.println();
-  
+    delay(1000);
+
+    test = sensors.requestTemperaturesByAddress(Probe05);  
+        Serial.println(test);
+
+  delay(1000);
   Serial.print("Probe CL temperature is:   ");
   printTemperature(Probe05);
   Serial.println();
-  
+    delay(1000);
+
+    test = sensors.requestTemperaturesByAddress(Probe06);  
+    Serial.println(test);
+  delay(1000);
   Serial.print("Probe RL temperature is:   ");
   printTemperature(Probe06);
   Serial.println();
@@ -101,8 +131,11 @@ void loop()   /****** LOOP: RUNS CONSTANTLY ******/
 /*-----( Declare User-written Functions )-----*/
 void printTemperature(DeviceAddress deviceAddress)
 {
-
-float tempC = sensors.getTempC(deviceAddress);
+float tempC;
+  do{
+ tempC = sensors.getTempC(deviceAddress);
+  }
+while(tempC == -127.00); 
 
    if (tempC == -127.00) 
    {

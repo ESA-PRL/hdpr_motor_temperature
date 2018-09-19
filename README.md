@@ -8,7 +8,7 @@ The sketch requires the [OneWire](https://github.com/PaulStoffregen/OneWire) and
 
 ## Usage
 
-* `temperature_sensors_HDPR`: sends the temperature values according to the [temperature driver](https://github.com/hdpr-rover/drivers-temperature) protocol.
-* `temperature_test`: sends dummy values to test the [temperature driver](https://github.com/hdpr-rover/drivers-temperature).
+* `temperature_sensors_HDPR`: sends the temperature values according to the [temperature driver](https://github.com/ESA-PRL/drivers-temperature) protocol.
+* `temperature_test`: sends dummy values to test the [temperature driver](https://github.com/ESA-PRL/drivers-temperature).
 * `multiple_dallas_temperature`: reads the HDPR temperatures and outputs them in a readable format in the Arduino serial monitor.
 
